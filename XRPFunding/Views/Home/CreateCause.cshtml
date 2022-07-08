@@ -1,0 +1,95 @@
+﻿@model XRPFunding.Models.CreateCauseViewModel
+
+@{
+    ViewBag.Title = "Create Cause";
+}
+
+<h2>Create Cause</h2>
+
+<div class="alert alert-success">
+    If you are adding your cause, remember to add all the details below and a XRPL address to receive donations. The important thing is that the information is clear to connect with your potential donors.
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="row">
+        @Html.LabelFor(m => m.Form.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Form.Name, new { @class = "form-control" }) @Html.ValidationMessageFor(x => x.Form.Name)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @Html.LabelFor(m => m.Form.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.TextAreaFor(m => m.Form.Description, new { @class = "form-control" }) @Html.ValidationMessageFor(x => x.Form.Description)
+        </div>
+        <div class="col-md-4 alert alert-info">
+            A detailed description will help your audience connect and really understand what the cause is about.
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @Html.LabelFor(m => m.Form.Website, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.Form.Website, new { @class = "form-control", type = "url" }) @Html.ValidationMessageFor(x => x.Form.Website)
+        </div>
+        <div class="col-md-4 alert alert-info">
+            Put your website, social network or a link with content to your cause, so that future donors can investigate more and contribute.
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @Html.LabelFor(m => m.Form.UrlPhoto, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.Form.UrlPhoto, new { @class = "form-control", type = "url" }) @Html.ValidationMessageFor(x => x.Form.UrlPhoto)
+        </div>
+        <div class="col-md-4 alert alert-info">
+            Please upload a link to a photo that shows what you do or what you want to do. If it is a personal cause, you can upload a photo link of yourself.
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @Html.LabelFor(m => m.Form.FundGoal, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.Form.FundGoal, new { @class = "form-control", type = "number", min = "1", step = "1" }) @Html.ValidationMessageFor(x => x.Form.FundGoal)
+        </div>
+        <div class="col-md-4 alert alert-info">
+            The total amount of XRP that you need to be able to execute your cause well.
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @Html.LabelFor(m => m.Form.Deadline, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.Form.Deadline, new { @class = "form-control", type = "date" }) @Html.ValidationMessageFor(x => x.Form.Deadline)
+        </div>
+        <div class="col-md-4 alert alert-info">
+            The final deadline for receiving donations. The goal to meet.
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @Html.LabelFor(m => m.Form.XRPLAddress, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.Form.XRPLAddress, new { @class = "form-control" }) @Html.ValidationMessageFor(x => x.Form.XRPLAddress)
+        </div>
+        <div class="col-md-4 alert alert-info">
+            If you don't have an address, you can create one @Html.ActionLink("here","CreateXRPLAddress","Home",null,new { target="_blank" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Create" />
+        </div>
+    </div>
+
+}
+<br /><br />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

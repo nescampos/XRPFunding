@@ -1,0 +1,46 @@
+﻿@model XRPFunding.Models.ListCausesViewModel
+@{
+    ViewBag.Title = "List of causes";
+}
+
+
+<h2>List of causes</h2>
+
+<table class="table table-condensed table-responsive table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Deadline</th>
+            <th>Goal</th>
+            <th>Amount achieved</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cause in Model.Causes)
+        {
+            <tr>
+                <th>
+                    <img src="@cause.UrlPhoto" alt="@cause.Name" style="height:120px;" class="img img-rounded img-responsive" />
+                </th>
+                <th>
+                    @cause.Name
+                </th>
+                <td>
+                    @cause.Deadline
+                </td>
+                <td>
+                    @cause.FundGoal XRP
+                </td>
+                <td>
+                    <span id="balance_@cause.XRPLAddress">@Model.DonationsByCause(cause.Id)</span> XRP
+                </td>
+                <td>
+                    @Html.ActionLink("See more", "ViewCause", new { id = cause.Id }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br /><br />

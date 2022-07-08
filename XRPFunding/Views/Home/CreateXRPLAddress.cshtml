@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Create wallet";
+}
+
+
+<h2>Create wallet</h2>
+
+<div class="alert alert-success">
+    If you don't have a XRPL address, you can create one here with funds of 1,000 test XRP.
+</div>
+
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            Please, click here: <a href="#" class="btn btn-primary" onclick="generateAddress();return false;">Generate and fund address</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            Your new address: <b><span id="public"></span></b>
+        </div>
+        <div class="col-md-3 alert alert-info">
+            This is your public address. Please save this data.
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            Private key: <b><span id="private"></span></b>
+        </div>
+        <div class="col-md-3 alert alert-warning">
+            This is your secret key, you shouldn't share this value with anyone. Please save this data.
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            Classic Address: <b><span id="classic"></span></b>
+        </div>
+        <div class="col-md-3 alert alert-warning">
+            This is your classic address, for sharing if you want to receive XRP. Please save this data.
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            Seed: <b><span id="seed"></span></b>
+        </div>
+        <div class="col-md-3 alert alert-warning">
+            This is your seed, for recovering your data and send XRP in this platform. Please save this data .
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var client = new xrpl.Client("wss://s.altnet.rippletest.net:51233");
+        
+
+        async function generateAddress() {
+            await client.connect()
+            const fund_result = await client.fundWallet()
+            const test_wallet = fund_result.wallet
+            $('#public').text(test_wallet.publicKey)
+            $('#private').text(test_wallet.privateKey)
+            $('#classic').text(test_wallet.classicAddress)
+            $('#seed').text(test_wallet.seed)
+
+            client.disconnect()
+            return false;
+        }
+    </script>
+}
